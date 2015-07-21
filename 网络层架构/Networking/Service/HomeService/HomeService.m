@@ -23,7 +23,7 @@
 
 - (NSString *)onlineApiVersion
 {
-    return @"directions/json";
+    return @"";
 }
 
 - (NSString *)onlinePrivateKey

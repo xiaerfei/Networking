@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //这里网络请求
     [self.itemListAPIManager loadData];
     
     
