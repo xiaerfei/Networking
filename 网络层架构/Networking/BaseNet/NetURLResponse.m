@@ -2,7 +2,7 @@
 //  NetURLResponse.m
 //  网络层架构
 //
-//  Created by xiaerfei on 15/7/20.
+//  Created by xiaerfei on 15/4/5.
 //  Copyright (c) 2015年 上海相非相网络科技有限公司. All rights reserved.
 //
 
