@@ -124,7 +124,7 @@
 {
     if (!_operationManager) {
         _operationManager = [AFHTTPRequestOperationManager manager];
-        _operationManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _operationManager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     return _operationManager;
 }

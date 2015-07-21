@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0220940F-DC66-456F-BCC6-5248CAC2F4A3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>网络层架构</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8BBB7C2C8E99F27DEB49079208F41550224CE90D</key>
+		<string>https://github.com/xiaerfei/Networking.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>网络层架构.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8BBB7C2C8E99F27DEB49079208F41550224CE90D</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/xiaerfei/Networking.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8BBB7C2C8E99F27DEB49079208F41550224CE90D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8BBB7C2C8E99F27DEB49079208F41550224CE90D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Networking</string>
+		</dict>
+	</array>
+</dict>
+</plist>

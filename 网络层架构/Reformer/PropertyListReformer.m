@@ -7,9 +7,9 @@
 //
 
 #import "PropertyListReformer.h"
-#import "ItemListAPIManager.h"
 
-@interface PropertyListReformer ()<APIManagerCallbackDataReformer>
+
+@interface PropertyListReformer ()
 
 @end
 
@@ -17,8 +17,7 @@
 
 -(id)manager:(BaseAPIManager *)manager reformData:(NSDictionary *)data
 {
-
-    return nil;
+    return data;
 }
 
 

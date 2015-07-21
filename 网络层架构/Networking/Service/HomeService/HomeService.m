@@ -18,7 +18,7 @@
 
 - (NSString *)onlineApiBaseUrl
 {
-    return @"http://api.ycapp.yiche.com/appforum/cheyouhome/";
+    return @"http://api.ycapp.yiche.com/appforum/";
 }
 
 - (NSString *)onlineApiVersion

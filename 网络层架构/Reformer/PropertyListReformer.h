@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface PropertyListReformer : NSObject
+#import "ItemListAPIManager.h"
+@interface PropertyListReformer : NSObject<APIManagerCallbackDataReformer>
 
 @end

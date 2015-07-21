@@ -18,7 +18,7 @@
 {
     NSMutableString *string = [[NSMutableString alloc] initWithFormat:@"%@/?",methodName];
     for (NSString *str in allParams.allKeys) {
-        [string appendFormat:@"%@&",allParams[str]];
+        [string appendFormat:@"%@=%@&",str,allParams[str]];
     }
     NSRange rang;
     rang.location = 0;

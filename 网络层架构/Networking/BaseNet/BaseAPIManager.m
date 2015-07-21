@@ -141,7 +141,7 @@
 - (void)successedOnCallingAPI:(NetURLResponse *)response
 {
     if (response.responseNSDictionary) {
-        self.fetchedRawData = [response.content copy];
+        self.fetchedRawData = [response.responseNSDictionary copy];
     } else {
         self.fetchedRawData = [response.responseData copy];
     }
