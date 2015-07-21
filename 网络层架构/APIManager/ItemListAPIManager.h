@@ -8,7 +8,7 @@
 
 #import "BaseAPIManager.h"
 
-@interface ItemListAPIManager : BaseAPIManager<APIManager,APIManagerValidator,APIManagerParamSourceDelegate,APIManagerParamSourceDelegate>
+@interface ItemListAPIManager : BaseAPIManager<APIManager,APIManagerValidator,APIManagerParamSourceDelegate,APIManagerParamSourceDelegate,APIManagerInterceptor>
 
 
 

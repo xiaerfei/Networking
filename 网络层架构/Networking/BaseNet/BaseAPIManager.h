@@ -39,13 +39,10 @@ typedef NS_ENUM (NSUInteger, APIManagerRequestType){
  APIBaseManager的派生类必须符合这些protocal
  */
 @protocol APIManager <NSObject>
-
 @required
-
 - (NSString *)methodName;
 - (NSString *)serviceType;
 - (APIManagerRequestType)requestType;
-
 @optional
 - (void)cleanData;
 - (NSDictionary *)reformParams:(NSDictionary *)params;
@@ -53,53 +50,53 @@ typedef NS_ENUM (NSUInteger, APIManagerRequestType){
 
 @end
 
+/*************************************************************************************************/
+/*                               APIManagerCallbackDataReformer                                  */
+/*************************************************************************************************/
+//由reform实现
 @protocol APIManagerCallbackDataReformer <NSObject>
-
 @required
-
 - (id)manager:(BaseAPIManager *)manager reformData:(NSDictionary *)data;
-
 @end
 
-//让manager能够获取调用API所需要的数据
+/*************************************************************************************************/
+/*                               APIManagerParamSourceDelegate                                   */
+/*************************************************************************************************/
+//让manager能够获取调用API所需要的数据,参数
 @protocol APIManagerParamSourceDelegate <NSObject>
 @required
 - (NSDictionary *)paramsForApi:(BaseAPIManager *)manager;
 @end
 
-
 /*************************************************************************************************/
 /*                               APIManagerApiCallBackDelegate                                   */
 /*************************************************************************************************/
-
-//api回调
+//api回调 返回数据，由controller实现
 @protocol APIManagerApiCallBackDelegate <NSObject>
-
 @required
-
 - (void)apiManagerDidSuccess:(BaseAPIManager *)manager;
-
 - (void)apiManagerDidFailed:(BaseAPIManager *)manager;
-
 @end
 
-@protocol APIManagerValidator <NSObject>
-@required
+/*************************************************************************************************/
+/*                               APIManagerValidator                                             */
+/*************************************************************************************************/
 /*
  所有的callback数据都应该在这个函数里面进行检查，事实上，到了回调delegate的函数里面是不需要再额外验证返回数据是否为空的。
  因为判断逻辑都在这里做掉了。
  而且本来判断返回数据是否正确的逻辑就应该交给manager去做，不要放到回调到controller的delegate方法里面去做。
  */
-- (BOOL)manager:(BaseAPIManager *)manager isCorrectWithCallBackData:(NSDictionary *)data;
-
+@protocol APIManagerValidator <NSObject>
+@required
 - (BOOL)manager:(BaseAPIManager *)manager isCorrectWithParamsData:(NSDictionary *)data;
+- (BOOL)manager:(BaseAPIManager *)manager isCorrectWithCallBackData:(NSDictionary *)data;
 @end
 
 /*************************************************************************************************/
-/*                                    RTAPIManagerInterceptor                                    */
+/*                                    APIManagerInterceptor                                    */
 /*************************************************************************************************/
 /*
- RTAPIBaseManager的派生类必须符合这些protocal
+APIBaseManager的派生类必须符合这些protocal
  */
 @protocol APIManagerInterceptor <NSObject>
 
@@ -123,8 +120,11 @@ typedef NS_ENUM (NSUInteger, APIManagerRequestType){
 @property (nonatomic, strong, readonly) id fetchedRawData;
 @property (nonatomic, readonly) APIManagerErrorType errorType;
 @property (nonatomic, copy, readonly) NSString *errorMessage;
-@property (nonatomic,strong) NSObject<APIManager> *child;
-@property (nonatomic,weak) id<APIManagerApiCallBackDelegate> delegate;
+@property (nonatomic, assign, readonly) BOOL isReachable;
+@property (nonatomic, assign, readonly) BOOL isLoading;
+
+@property (nonatomic, strong) NSObject<APIManager> *child;
+@property (nonatomic, weak) id<APIManagerApiCallBackDelegate> delegate;
 @property (nonatomic, weak) id<APIManagerParamSourceDelegate> paramSource;
 @property (nonatomic, weak) id<APIManagerInterceptor> interceptor;
 @property (nonatomic, weak) id<APIManagerValidator> validator;

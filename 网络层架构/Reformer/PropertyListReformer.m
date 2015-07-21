@@ -17,7 +17,10 @@
 
 -(id)manager:(BaseAPIManager *)manager reformData:(NSDictionary *)data
 {
-    return data;
+    if ([manager isKindOfClass:[ItemListAPIManager class]]) {
+        return data;
+    }
+    return nil;
 }
 
 

@@ -22,13 +22,15 @@
 
 
 @interface BaseAPIManager ()
+
 @property (nonatomic, strong) NSMutableArray *requestIdList;
-
 @property (nonatomic, strong, readwrite) id fetchedRawData;
-
 @property (nonatomic, readwrite) APIManagerErrorType errorType;
-
 @property (nonatomic, copy, readwrite) NSString *errorMessage;
+@property (nonatomic, assign, readwrite) BOOL isReachable;
+@property (nonatomic, assign, readwrite) BOOL isLoading;
+
+
 @end
 
 @implementation BaseAPIManager
@@ -46,8 +48,6 @@
     return self;
 }
 
-
-
 #pragma mark - public methods
 
 - (void)cancelAllRequests
@@ -56,13 +56,11 @@
     [self.requestIdList removeAllObjects];
 }
 
-
 - (void)cancelRequestWithRequestId:(NSInteger)requestID
 {
     [self removeRequestIdWithRequestID:requestID];
     [[NetApiProxy sharedInstance] cancelRequestWithRequestID:@(requestID)];
 }
-
 
 - (id)fetchDataWithReformer:(id<APIManagerCallbackDataReformer>)reformer
 {
@@ -80,6 +78,11 @@
     return NO;
 }
 
+- (BOOL)isLoading
+{
+    return [self.requestIdList count] > 0;
+}
+
 #pragma mark - calling api
 - (NSInteger)loadData
 {
@@ -93,23 +96,24 @@
     NSInteger requestId = 0;
     NSDictionary *apiParams = [self reformParams:params];
     if ([self shouldCallAPIWithParams:apiParams]) {
+        //验证请求参数是否正确
         if ([self.validator manager:self isCorrectWithParamsData:apiParams]) {
-            
             // 先检查一下是否有缓存
             if ([self shouldCache] && [self hasCacheWithParams:apiParams]) {
                 return 0;
             }
-            
             // 实际的网络请求
             if ([self isReachable]) {
                 switch (self.child.requestType)
                 {
+                    //不带cookie
                     case APIManagerRequestTypeGet:
                         AXCallAPI(GET, requestId);
                         break;
                     case APIManagerRequestTypePost:
                         AXCallAPI(POST, requestId);
                         break;
+                    //带cookie
 //                    case APIManagerRequestTypeRestGet:
 //                        AXCallAPI(RestfulGET, requestId);
 //                        break;
@@ -276,7 +280,7 @@
 
 - (BOOL)hasCacheWithParams:(NSDictionary *)params
 {
-    return YES;
+    return NO;
 }
 
 #pragma mark - getters and setters
