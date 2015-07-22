@@ -114,12 +114,12 @@
                         AXCallAPI(POST, requestId);
                         break;
                     //带cookie
-//                    case APIManagerRequestTypeRestGet:
-//                        AXCallAPI(RestfulGET, requestId);
-//                        break;
-//                    case APIManagerRequestTypeRestPost:
-//                        AXCallAPI(RestfulPOST, requestId);
-//                        break;
+                    case APIManagerRequestTypeRestGet:
+                        AXCallAPI(RestfulGET, requestId);
+                        break;
+                    case APIManagerRequestTypeRestPost:
+                        AXCallAPI(RestfulPOST, requestId);
+                        break;
                     default:
                         break;
                 }

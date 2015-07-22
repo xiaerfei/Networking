@@ -19,6 +19,10 @@ typedef void(^NetCallBack)(NetURLResponse *response);
 - (NSInteger)callGETWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail;
 - (NSInteger)callPOSTWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail;
 
+- (NSInteger)callRestfulGETWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail;
+- (NSInteger)callRestfulPOSTWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail;
+
+
 - (void)cancelRequestWithRequestID:(NSNumber *)requestID;
 
 - (void)cancelRequestWithRequestIDList:(NSArray *)requestIDList;

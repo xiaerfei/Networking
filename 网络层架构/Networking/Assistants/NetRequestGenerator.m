@@ -31,39 +31,26 @@
     return sharedInstance;
 }
 
-- (NSURLRequest *)generateGETRequestWithServiceIdentifier:(NSString *)serviceIdentifier requestParams:(NSDictionary *)requestParams methodName:(NSString *)methodName
+- (NSMutableURLRequest *)generateGETRequestWithServiceIdentifier:(NSString *)serviceIdentifier requestParams:(NSDictionary *)requestParams methodName:(NSString *)methodName
 {
     NetService *service = [[NetServiceFactory sharedInstance] serviceWithIdentifier:serviceIdentifier];
     NSString *signa = [NetSignatureGenerator signGetWithSigParams:requestParams methodName:methodName apiVersion:service.apiVersion privateKey:service.privateKey publicKey:service.publicKey];
     NSString *urlString = [NSString stringWithFormat:@"%@%@",service.apiBaseUrl,signa];
     
     NSMutableURLRequest *request = [self.httpRequestSerializer requestWithMethod:@"GET" URLString:urlString parameters:nil error:NULL];
-    [self setCookieWithRequest:request];
     request.timeoutInterval = kAIFNetworkingTimeoutSeconds;
     return request;
 }
 
-- (NSURLRequest *)generatePOSTRequestWithServiceIdentifier:(NSString *)serviceIdentifier requestParams:(NSDictionary *)requestParams methodName:(NSString *)methodName
+- (NSMutableURLRequest *)generatePOSTRequestWithServiceIdentifier:(NSString *)serviceIdentifier requestParams:(NSDictionary *)requestParams methodName:(NSString *)methodName
 {
     NSString *urlString = methodName;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:kAIFNetworkingTimeoutSeconds];
     request.HTTPMethod = @"POST";
-    [self setCookieWithRequest:request];
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:requestParams options:NSJSONWritingPrettyPrinted error:NULL];
     
     return request;
-}
-
-#pragma mark - private
-- (void)setCookieWithRequest:(NSMutableURLRequest *)request{
-    NSArray *arcCookies = [NSKeyedUnarchiver unarchiveObjectWithData: [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionCookies"]];
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in arcCookies){
-        [cookieStorage setCookie: cookie];
-    }
-    NSDictionary *sheaders = [NSHTTPCookie requestHeaderFieldsWithCookies:arcCookies];
-    [request setAllHTTPHeaderFields:sheaders];
 }
 
 #pragma mark - getters and setters

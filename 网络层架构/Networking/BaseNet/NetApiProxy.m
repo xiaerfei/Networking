@@ -47,7 +47,21 @@
     NSURLRequest *request = [[NetRequestGenerator sharedInstance] generatePOSTRequestWithServiceIdentifier:servieIdentifier requestParams:params methodName:methodName];
     NSNumber *requestId = [self callApiWithRequest:request success:success fail:fail];
     return [requestId integerValue];
-    return 0;
+}
+
+- (NSInteger)callRestfulGETWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail
+{
+    NSMutableURLRequest *request = [[NetRequestGenerator sharedInstance] generateGETRequestWithServiceIdentifier:servieIdentifier requestParams:params methodName:methodName];
+    [self setCookieWithRequest:request];
+    NSNumber *requestId = [self callApiWithRequest:request success:success fail:fail];
+    return [requestId integerValue];
+}
+- (NSInteger)callRestfulPOSTWithParams:(NSDictionary *)params serviceIdentifier:(NSString *)servieIdentifier methodName:(NSString *)methodName success:(NetCallBack)success fail:(NetCallBack)fail
+{
+    NSMutableURLRequest *request = [[NetRequestGenerator sharedInstance] generatePOSTRequestWithServiceIdentifier:servieIdentifier requestParams:params methodName:methodName];
+    [self setCookieWithRequest:request];
+    NSNumber *requestId = [self callApiWithRequest:request success:success fail:fail];
+    return [requestId integerValue];
 }
 
 - (void)cancelRequestWithRequestID:(NSNumber *)requestID
@@ -102,6 +116,16 @@
     self.dispatchTable[requestId] = httpRequestOperation;
     [[self.operationManager operationQueue] addOperation:httpRequestOperation];
     return requestId;
+}
+#pragma mark - private
+- (void)setCookieWithRequest:(NSMutableURLRequest *)request{
+    NSArray *arcCookies = [NSKeyedUnarchiver unarchiveObjectWithData: [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionCookies"]];
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in arcCookies){
+        [cookieStorage setCookie: cookie];
+    }
+    NSDictionary *sheaders = [NSHTTPCookie requestHeaderFieldsWithCookies:arcCookies];
+    [request setAllHTTPHeaderFields:sheaders];
 }
 
 - (NSNumber *)generateRequestId
