@@ -93,7 +93,7 @@ typedef NS_ENUM (NSUInteger, APIManagerRequestType){
 @end
 
 /*************************************************************************************************/
-/*                                    APIManagerInterceptor                                    */
+/*                                    APIManagerInterceptor                                      */
 /*************************************************************************************************/
 /*
 APIBaseManager的派生类必须符合这些protocal
